@@ -50,10 +50,12 @@ app = FastAPI(
 )
 
 # CORS for React frontend
+# CORS: wildcard origin + credentials is rejected by browsers per spec.
+# We don't use cookies/auth here, so drop credentials and keep wildcard.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -273,7 +275,6 @@ if DIST_DIR.exists():
         return FileResponse(DIST_DIR / "index.html")
 
 
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", "8000"))
-    uvicorn.run("backend.main:app", host="0.0.0.0", port=port, reload=True)
+# Run with: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+# Do NOT run as `python backend/main.py` — local backend/agents/ would
+# shadow the openai-agents SDK package on sys.path[0] and crash imports.
