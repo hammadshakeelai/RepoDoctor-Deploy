@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RepoDoctor AI</title>
+<meta name="description" content="6 AI agents dissect any GitHub repo in real time.">
+<style>
+:root{--bg:#0a0a0f;--card:rgba(255,255,255,.04);--bd:rgba(255,255,255,.08);--fg:#f0f0f5;--fg2:#8888a0;--fg3:#55556a;--purple:#7c3aed;--blue:#0ea5e9;--violet:#8b5cf6;--grad:linear-gradient(135deg,#7c3aed,#0ea5e9)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.bg-glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.10) 0%,transparent 70%);pointer-events:none;z-index:-1}
+.wrap{max-width:1100px;margin:0 auto;padding:60px 24px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,.1);border:1px solid rgba(124,58,237,.25);border-radius:999px;padding:6px 16px;font-size:.8rem;font-weight:500;color:var(--purple);margin-bottom:20px}
+h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:14px}
+.gradient{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.lead{color:var(--fg2);font-size:1.1rem;max-width:700px;margin-bottom:28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;font-weight:600;font-size:.95rem;border:1px solid var(--bd);background:var(--card);color:var(--fg);transition:all .2s}
+.btn:hover{border-color:var(--purple);transform:translateY(-2px);text-decoration:none}
+.btn.primary{background:var(--grad);border:none;color:#fff}
+.warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:14px 18px;color:#fcd34d;font-size:.9rem;margin-bottom:32px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:48px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:22px;transition:all .25s}
+.card:hover{border-color:rgba(255,255,255,.18);transform:translateY(-3px)}
+.ico{font-size:1.6rem;margin-bottom:10px}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.card p{font-size:.88rem;color:var(--fg2)}
+section{margin-bottom:56px}
+section h2{font-size:1.6rem;font-weight:800;margin-bottom:20px;letter-spacing:-.02em}
+pre{background:rgba(0,0,0,.4);border:1px solid var(--bd);border-radius:10px;padding:16px;overflow-x:auto;font-family:JetBrains Mono,Fira Code,Consolas,monospace;font-size:.85rem;color:#cdd5e3;line-height:1.7}
+code:not(pre code){background:rgba(124,58,237,.15);padding:2px 6px;border-radius:4px;font-family:monospace;font-size:.88em;color:var(--violet)}
+.steps{counter-reset:step;list-style:none}
+.steps li{counter-increment:step;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px 18px 14px 56px;margin-bottom:10px;position:relative;font-size:.95rem;color:var(--fg2)}
+.steps li::before{content:counter(step);position:absolute;left:14px;top:14px;width:28px;height:28px;border-radius:8px;background:var(--grad);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.steps li b{color:var(--fg)}
+.deploy-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.deploy-btn{padding:10px 16px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--fg);font-weight:600;font-size:.88rem}
+.deploy-btn:hover{border-color:var(--purple);text-decoration:none}
+footer{padding:40px 0 20px;border-top:1px solid var(--bd);color:var(--fg3);font-size:.85rem;text-align:center}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="wrap">
+<div class="badge">Multi-Agent System</div>
+<h1><span class="gradient">RepoDoctor AI</span></h1>
+<p class="lead">Paste any GitHub repo and 6 AI agents dissect it in real time. Architecture map, security audit, reliability report, code fixes, onboarding narrative, and a quiz.</p>
+<div class="cta">
+<a class="btn primary" href="https://github.com/hammadshakeelai/RepoDoctor-Deploy">View on GitHub</a>
+<a class="btn" href="#deploy">Deploy your own</a>
+<a class="btn" href="#local">Run locally</a>
+</div>
+<div class="warn"><b>Heads up:</b> this page is the project landing site. The actual app needs a server &mdash; GitHub Pages can host this page but cannot run the FastAPI backend. Deploy it to HF Spaces (free) or run it locally to use it.</div>
+
+<section>
+<h2>The 6 agents</h2>
+<div class="grid">
+<div class="card"><div class="ico">MAP</div><h3>Mapper</h3><p>Architecture, dependencies, entry points, language breakdown.</p></div>
+<div class="card"><div class="ico">DOC</div><h3>Storyteller</h3><p>Plain-English narrative &mdash; how the codebase thinks.</p></div>
+<div class="card"><div class="ico">SEC</div><h3>Hacker</h3><p>Security audit. SQLi, XSS, secrets, weak crypto, CWE-tagged.</p></div>
+<div class="card"><div class="ico">SRE</div><h3>SRE</h3><p>Reliability. Bottlenecks, SPOFs, missing retries, scaling holes.</p></div>
+<div class="card"><div class="ico">FIX</div><h3>Fixer</h3><p>Concrete code patches with before/after diffs.</p></div>
+<div class="card"><div class="ico">QUIZ</div><h3>Quizzer</h3><p>5 onboarding MCQs that test real understanding.</p></div>
+</div>
+</section>
+
+<section id="deploy">
+<h2>One-click deploy</h2>
+<div class="deploy-row">
+<a class="deploy-btn" href="https://huggingface.co/new-space?sdk=docker">Hugging Face Spaces (free)</a>
+<a class="deploy-btn" href="https://render.com/deploy?repo=https://github.com/hammadshakeelai/RepoDoctor-Deploy">Render</a>
+<a class="deploy-btn" href="https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fhammadshakeelai%2FRepoDoctor-Deploy">Railway</a>
+<a class="deploy-btn" href="https://fly.io/launch?repo=https%3A%2F%2Fgithub.com%2Fhammadshakeelai%2FRepoDoctor-Deploy">Fly.io</a>
+</div>
+<ol class="steps">
+<li><b>Click a deploy button</b> above. Sign in to that platform.</li>
+<li><b>Set the secret</b> <code>OPENAI_API_KEY</code> in the platform env settings.</li>
+<li><b>Wait for build</b> (~6 min first time). Single Docker image, no extra config.</li>
+<li><b>Open the URL</b> the platform gives you. Done.</li>
+</ol>
+</section>
+
+<section id="local">
+<h2>Run locally</h2>
+<pre>git clone https://github.com/hammadshakeelai/RepoDoctor-Deploy
+cd RepoDoctor-Deploy
+copy .env.example .env
+docker compose up --build
+# open http://localhost:8000</pre>
+<p style="color:var(--fg2);font-size:.92rem">Backend: FastAPI + OpenAI Agents SDK. Frontend: React + Vite. Single Docker container.</p>
+</section>
+
+<section>
+<h2>How a request flows</h2>
+<pre>GitHub URL
+    |
+    v
+FastAPI /api/analyze (Server-Sent Events)
+    |
+    +-&gt; Cloner       (git clone --depth 1)
+    +-&gt; Mapper       (architecture, deps, entry points)
+    +-&gt; Storyteller  parallel
+    +-&gt; Hacker       parallel
+    +-&gt; SRE          parallel
+    +-&gt; Fixer        (code patches)
+    +-&gt; Quizzer      (onboarding MCQs)</pre>
+</section>
+
+<footer>Built by <a href="https://github.com/hammadshakeelai">@hammadshakeelai</a> &middot; <a href="https://github.com/hammadshakeelai/RepoDoctor-Deploy">Source</a> &middot; MIT</footer>
+</div>
+</body>
+</html>
