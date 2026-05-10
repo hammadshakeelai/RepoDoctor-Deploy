@@ -1,0 +1,10 @@
+services:
+  repodoctor:
+    build: .
+    container_name: repodoctor
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PORT=7860
+    ports:
+      - "${HOST_PORT:-8000}:7860"
+    restart: unless-stopped

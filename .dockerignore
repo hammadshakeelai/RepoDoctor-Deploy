@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+.env.local
+.venv
+venv
+__pycache__
+*.pyc
+node_modules
+frontend/dist
+frontend_dist
+.vscode
+.idea
+*.md
+!README.md
+workspace
+outputs
